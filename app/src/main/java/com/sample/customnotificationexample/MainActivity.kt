@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
                 .setSmallIcon(R.drawable.ic_android)
                 .setCustomContentView(collapsedView)
                 .setCustomBigContentView(expandedView)
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle("Title")
                 .setContentText("This is a default notification")
                 .build()
