@@ -54,9 +54,6 @@ class MainActivity : AppCompatActivity() {
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle("Title")
                 .setContentText("This is a default notification")
-//                .setContentIntent(activityPendingIntent)
-//                .setAutoCancel(true) // Make this notification automatically dismissed when the user touches it.
-//            .setOnlyAlertOnce(true)
                 .build()
 
         notificationManager.notify(1, notification)
