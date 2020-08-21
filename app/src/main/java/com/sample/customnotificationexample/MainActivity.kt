@@ -17,6 +17,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         notificationManager = NotificationManagerCompat.from(this)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        notificationManager.cancel(1)
     }
 
     fun showNotification(v: View) {
@@ -27,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         val collapsedView = RemoteViews(packageName, R.layout.notification_collapsed)
         val expandedView = RemoteViews(packageName, R.layout.notification_expanded)
 
+        // Opening the current activity from the notification
+        val activityIntent = Intent(this, MainActivity::class.java)
+        val activityPendingIntent = PendingIntent.getActivity(this, 0, activityIntent, 0)
 
         // Triggering the broadcast receiver
         val clickIntent = Intent(this, NotificationReceiver::class.java)
@@ -35,7 +44,8 @@ class MainActivity : AppCompatActivity() {
 
         collapsedView.setTextViewText(R.id.text_view_collapsed_1, "Hello World!")
         expandedView.setImageViewResource(R.id.image_view_expanded, R.drawable.otter)
-        expandedView.setOnClickPendingIntent(R.id.image_view_expanded, clickPendingIntent)
+//        expandedView.setOnClickPendingIntent(R.id.image_view_expanded, clickPendingIntent)
+        expandedView.setOnClickPendingIntent(R.id.layout_expanded, activityPendingIntent)
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_android)
@@ -44,6 +54,9 @@ class MainActivity : AppCompatActivity() {
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle("Title")
                 .setContentText("This is a default notification")
+//                .setContentIntent(activityPendingIntent)
+//                .setAutoCancel(true) // Make this notification automatically dismissed when the user touches it.
+//            .setOnlyAlertOnce(true)
                 .build()
 
         notificationManager.notify(1, notification)
