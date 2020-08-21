@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         val collapsedView = RemoteViews(packageName, R.layout.notification_collapsed)
         val expandedView = RemoteViews(packageName, R.layout.notification_expanded)
 
+        collapsedView.setTextViewText(R.id.text_view_collapsed_1, "Hello World!")
+        expandedView.setImageViewResource(R.id.image_view_expanded, R.drawable.otter)
+
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_android)
                 .setCustomContentView(collapsedView)
