@@ -1,5 +1,7 @@
 package com.sample.customnotificationexample
 
+import android.app.PendingIntent
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,8 +27,15 @@ class MainActivity : AppCompatActivity() {
         val collapsedView = RemoteViews(packageName, R.layout.notification_collapsed)
         val expandedView = RemoteViews(packageName, R.layout.notification_expanded)
 
+
+        // Triggering the broadcast receiver
+        val clickIntent = Intent(this, NotificationReceiver::class.java)
+        // Remember a pending intent is an object we could pass to another process
+        var clickPendingIntent = PendingIntent.getBroadcast(this, 0, clickIntent, 0)
+
         collapsedView.setTextViewText(R.id.text_view_collapsed_1, "Hello World!")
         expandedView.setImageViewResource(R.id.image_view_expanded, R.drawable.otter)
+        expandedView.setOnClickPendingIntent(R.id.image_view_expanded, clickPendingIntent)
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_android)
